@@ -16,7 +16,12 @@ export default function Source() {
       <SourceWrapper>
         <SourceLabel>Source</SourceLabel>
         <SourceCite>
-          <SourceLink href={href}>{href}</SourceLink>
+          <SourceLink
+            href={href}
+            target="_blank"
+          >
+            {href}
+          </SourceLink>
         </SourceCite>
       </SourceWrapper>
     </>

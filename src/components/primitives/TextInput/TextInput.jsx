@@ -11,9 +11,15 @@ export default function TextInput({
   ...delegated
 }) {
   const id = React.useId();
+  const formRef = React.useRef(null);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    formRef.current.blur();
+  }
 
   return (
-    <Wrapper>
+    <Wrapper onSubmit={handleSubmit}>
       <label htmlFor={id}>
         <VisuallyHidden>{label}</VisuallyHidden>
         {icon}
@@ -24,6 +30,7 @@ export default function TextInput({
         value={value}
         onChange={onChange}
         {...delegated}
+        ref={formRef}
       />
     </Wrapper>
   );

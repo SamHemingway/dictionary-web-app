@@ -4,24 +4,21 @@ import Header from "./components/Header";
 import WordSearch from "./components/WordSearch/WordSearch";
 import Result from "./components/Result/Result";
 import Source from "./components/Source/Source";
-import ThemeProvider from "./contexts/ThemeProvider/ThemeProvider";
 import SearchTermProvider from "./contexts/SearchTermProvider/SearchTermProvider";
 
 function App() {
   return (
-    <ThemeProvider>
-      <Wrapper>
-        <GlobalStyle />
-        <Header />
-        <SearchTermProvider>
-          <main>
-            <WordSearch />
-            <Result />
-            <Source />
-          </main>
-        </SearchTermProvider>
-      </Wrapper>
-    </ThemeProvider>
+    <Wrapper>
+      <GlobalStyle />
+      <Header />
+      <SearchTermProvider>
+        <main>
+          <WordSearch />
+          <Result />
+          <Source />
+        </main>
+      </SearchTermProvider>
+    </Wrapper>
   );
 }
 

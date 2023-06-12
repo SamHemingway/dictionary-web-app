@@ -43,7 +43,7 @@ AudioButton.propTypes = {
 const Wrapper = styled.button`
   background: none;
   border: none;
-  inline-size: var(--size-xxl);
+  inline-size: var(--size-3xl);
   padding: 0;
   cursor: pointer;
 

@@ -17,7 +17,7 @@ SectionDivider.defaultProp = {
 const HorizontalDivider = styled.hr`
   border: 0.5px solid var(--background-hr);
   inline-size: 100%;
-  margin-block: var(--size-xl);
+  margin-block: var(--size-2xl);
 `;
 
 const VerticalDivider = styled.hr`

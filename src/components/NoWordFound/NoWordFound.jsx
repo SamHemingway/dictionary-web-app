@@ -19,7 +19,7 @@ NoWordFound.propTypes = {
 };
 
 const Wrapper = styled.section`
-  padding-block-start: var(--size-xxl);
+  padding-block-start: var(--size-3xl);
   display: flex;
   flex-direction: column;
   align-items: center;

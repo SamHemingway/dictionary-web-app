@@ -81,6 +81,10 @@ const Toggle = styled(Switch.Root)`
   transition: background-color 500ms ease-in;
   cursor: pointer;
 
+  /* Need these to override Safari user style sheet defaults */
+  padding-inline: 6px;
+  padding-block: 2px;
+
   &[data-state="checked"] {
     background-color: var(--colour-accent);
   }
@@ -110,6 +114,7 @@ const ToggleThumb = styled(Switch.Thumb)`
   box-shadow: 0 2px 2px var(--blackA7);
   transition: transform 250ms;
   transform: translateX(-3px);
+  transform-origin: left;
   will-change: transform;
 
   &[data-state="checked"] {

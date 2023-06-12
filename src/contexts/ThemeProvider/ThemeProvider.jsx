@@ -45,7 +45,8 @@ export default function ThemeProvider({ children }) {
     );
 
     window.localStorage.setItem("font", font);
-  }, [font]);
+    window.localStorage.setItem("theme", theme);
+  }, [font, theme]);
 
   React.useEffect(() => {
     const themeVars = createCSSVars(THEME[theme]).split(";");

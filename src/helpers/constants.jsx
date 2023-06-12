@@ -42,8 +42,9 @@ export const CSS_VARS = {
     s: linearInterpolation(16, 32),
     m: linearInterpolation(24, 60),
     l: linearInterpolation(32, 42),
-    xl: linearInterpolation(32, 60),
-    xxl: linearInterpolation(48, 76),
+    xl: linearInterpolation(24, 32),
+    "2xl": linearInterpolation(32, 60),
+    "3xl": linearInterpolation(48, 76),
   },
 
   border: {
