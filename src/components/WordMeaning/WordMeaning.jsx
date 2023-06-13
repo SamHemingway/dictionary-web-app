@@ -1,27 +1,57 @@
+import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components/macro";
-import { SearchTermContext } from "../../contexts/SearchTermProvider/SearchTermProvider";
+import { motion } from "framer-motion";
+import Source from "../Source/Source";
+import SectionDivider from "../primitives/SectionDivider/SectionDivider";
 
-export default function WordMeaning() {
-  const { payload } = React.useContext(SearchTermContext);
+const wrapperVariants = {
+  start: {
+    opacity: 1,
+  },
+  end: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.03,
+    },
+  },
+};
 
+const childVariants = {
+  start: {
+    opacity: 0,
+    y: 50,
+  },
+  end: {
+    opacity: 1,
+    y: 0,
+  },
+};
+
+function WordMeaning({ payload }) {
   return (
-    <Wrapper>
+    <motion.article
+      variants={wrapperVariants}
+      initial="start"
+      animate="end"
+    >
       {payload[0]?.meanings.map((entry, index) => {
         return (
-          <article key={index}>
-            <DividerContainer>
+          <React.Fragment key={index}>
+            <DividerContainer variants={childVariants}>
               <PartOfSpeech>{entry.partOfSpeech}</PartOfSpeech>
-              <HorizontalDivider />
+              <SectionDivider />
             </DividerContainer>
-            <Subheader>Meaning</Subheader>
+            <Subheader variants={childVariants}>Meaning</Subheader>
             <DefinitionList>
               {entry.definitions.map((entry, index) => {
                 return (
                   <React.Fragment key={index}>
-                    <DefinitionItem>{entry.definition}</DefinitionItem>
+                    <DefinitionItem variants={childVariants}>
+                      {entry.definition}
+                    </DefinitionItem>
                     {entry.example && (
-                      <Example>
+                      <Example variants={childVariants}>
                         <ExampleQuote>{entry.example}</ExampleQuote>
                       </Example>
                     )}
@@ -30,7 +60,7 @@ export default function WordMeaning() {
               })}
             </DefinitionList>
             {entry.synonyms[0] && (
-              <SynonymWrapper>
+              <SynonymWrapper variants={childVariants}>
                 <Subheader style={{ display: "inline" }}>Synonyms</Subheader>
                 <SynonymList>
                   {entry.synonyms.map((entry, index) => {
@@ -39,20 +69,26 @@ export default function WordMeaning() {
                 </SynonymList>
               </SynonymWrapper>
             )}
-          </article>
+          </React.Fragment>
         );
       })}
-    </Wrapper>
+      <SectionDivider />
+      <Source
+        payload={payload}
+        variants={childVariants}
+      />
+    </motion.article>
   );
 }
 
-const Wrapper = styled.section``;
+WordMeaning.propTypes = {
+  payload: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
+};
 
-const DividerContainer = styled.div`
+const DividerContainer = styled(motion.div)`
   display: flex;
   align-items: center;
   gap: var(--size-s);
-  margin-block: var(--size-l);
 `;
 
 const PartOfSpeech = styled.h2`
@@ -60,24 +96,19 @@ const PartOfSpeech = styled.h2`
   font-style: italic;
 `;
 
-const HorizontalDivider = styled.hr`
-  border: 0.5px solid var(--background-hr);
-  inline-size: 100%;
-`;
-
-const Subheader = styled.h3`
+const Subheader = styled(motion.h3)`
   margin-block-end: var(--size-s);
   font-weight: var(--font-weight-regular);
   color: var(--text-subheading);
   font-size: var(--font-size-m);
 `;
 
-const DefinitionList = styled.ul`
+const DefinitionList = styled(motion.ul)`
   padding-inline-start: 1rem;
   margin-block-end: var(--size-s);
 `;
 
-const DefinitionItem = styled.li`
+const DefinitionItem = styled(motion.li)`
   margin-block-end: 12px;
   padding-inline: 12px;
 
@@ -86,7 +117,7 @@ const DefinitionItem = styled.li`
   }
 `;
 
-const SynonymWrapper = styled.div`
+const SynonymWrapper = styled(motion.div)`
   display: flex;
   gap: var(--size-s);
 `;
@@ -118,7 +149,7 @@ const ExampleQuote = styled.blockquote`
   }
 `;
 
-const Example = styled.li`
+const Example = styled(motion.li)`
   color: var(--text-subheading);
   padding-inline: 12px;
   margin-block-end: 12px;
@@ -127,3 +158,5 @@ const Example = styled.li`
     color: transparent;
   }
 `;
+
+export default WordMeaning;

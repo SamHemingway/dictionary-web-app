@@ -8,10 +8,12 @@ export default function TextInput({
   value,
   onChange,
   icon,
+  providedRef,
   ...delegated
 }) {
   const id = React.useId();
-  const formRef = React.useRef(null);
+  const reactRef = React.useRef(null);
+  const formRef = providedRef || reactRef;
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -41,6 +43,7 @@ TextInput.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   icon: PropTypes.node,
+  providedRef: PropTypes.object,
 };
 
 const Wrapper = styled.form`

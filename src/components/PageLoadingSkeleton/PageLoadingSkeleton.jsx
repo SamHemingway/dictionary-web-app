@@ -1,12 +1,21 @@
 import { motion } from "framer-motion";
 import styled from "styled-components/macro";
 
-const variants = {
+const skeletonItemVariants = {
   start: {
     opacity: 0.5,
   },
   end: {
     opacity: 0.75,
+  },
+};
+
+const wrapperVariants = {
+  start: {
+    opacity: 0,
+  },
+  end: {
+    opacity: 1,
   },
 };
 
@@ -17,7 +26,7 @@ const transition = {
 };
 
 const elProps = {
-  variants: variants,
+  variants: skeletonItemVariants,
   initial: "start",
   animate: "end",
   transition: transition,
@@ -25,7 +34,11 @@ const elProps = {
 
 export default function PageLoadingSkeleton() {
   return (
-    <Wrapper>
+    <Wrapper
+      variants={wrapperVariants}
+      initial="start"
+      animate="end"
+    >
       <WordSummary>
         <Titles>
           <HeadingSkeleton {...elProps} />
@@ -81,11 +94,11 @@ export default function PageLoadingSkeleton() {
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-block-start: calc(var(--size-xl) - 0.8rem);
+  padding-block-start: 0.5rem;
 `;
 
 const WordSummary = styled.div`

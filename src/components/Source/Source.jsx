@@ -1,34 +1,32 @@
-import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components/macro";
-import SectionDivider from "../primitives/SectionDivider/SectionDivider";
-import { SearchTermContext } from "../../contexts/SearchTermProvider";
+import { motion } from "framer-motion";
 
-export default function Source() {
-  const { payload } = React.useContext(SearchTermContext);
-
+function Source({ payload, ...delegated }) {
   if (!payload[0]) return null;
 
-  const href = payload[0].sourceUrls;
+  const href = payload[0].sourceUrls[0];
 
   return (
-    <>
-      <SectionDivider />
-      <SourceWrapper>
-        <SourceLabel>Source</SourceLabel>
-        <SourceCite>
-          <SourceLink
-            href={href}
-            target="_blank"
-          >
-            {href}
-          </SourceLink>
-        </SourceCite>
-      </SourceWrapper>
-    </>
+    <SourceWrapper {...delegated}>
+      <SourceLabel>Source</SourceLabel>
+      <SourceCite>
+        <SourceLink
+          href={href}
+          target="_blank"
+        >
+          {href}
+        </SourceLink>
+      </SourceCite>
+    </SourceWrapper>
   );
 }
 
-const SourceWrapper = styled.div`
+Source.propTypes = {
+  payload: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
+};
+
+const SourceWrapper = styled(motion.article)`
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
@@ -57,3 +55,5 @@ const SourceLink = styled.a`
     display: inline-block;
   }
 `;
+
+export default Source;

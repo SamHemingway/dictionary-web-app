@@ -1,17 +1,30 @@
-import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components/macro";
-import { SearchTermContext } from "../../contexts/SearchTermProvider/SearchTermProvider";
 import AudioButton from "../AudioButton/AudioButton";
+import { motion } from "framer-motion";
 
-export default function WordSummary() {
-  const { payload } = React.useContext(SearchTermContext);
+const variants = {
+  start: {
+    opacity: 0,
+    y: 50,
+  },
+  end: {
+    opacity: 1,
+    y: 0,
+  },
+};
 
+function WordSummary({ payload }) {
   const wordTitle = payload[0]?.word;
   const phonetic = payload[0]?.phonetic;
   const audioSrc = payload[0]?.phonetics.find((entry) => entry.audio)?.audio;
 
   return (
-    <Wrapper>
+    <Wrapper
+      variants={variants}
+      initial="start"
+      animate="end"
+    >
       {payload[0] && (
         <>
           <Word>
@@ -29,7 +42,11 @@ export default function WordSummary() {
   );
 }
 
-const Wrapper = styled.section`
+WordSummary.propTypes = {
+  payload: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
+};
+
+const Wrapper = styled(motion.article)`
   display: flex;
   align-items: center;
 `;
@@ -53,3 +70,5 @@ const Phonetic = styled.span`
 const Audio = styled.div`
   margin-inline-start: auto;
 `;
+
+export default WordSummary;

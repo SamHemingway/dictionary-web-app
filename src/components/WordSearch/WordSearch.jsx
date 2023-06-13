@@ -1,10 +1,14 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components/macro";
 import TextInput from "../primitives/TextInput/TextInput";
-import { SearchTermContext } from "../../contexts/SearchTermProvider/SearchTermProvider";
 
-export default function WordSearch() {
-  const { searchTerm, onChange } = React.useContext(SearchTermContext);
+function WordSearch({ searchTerm, onChange }) {
+  const inputRef = React.useRef(null);
+
+  React.useEffect(() => {
+    inputRef.current.focus();
+  }, [inputRef]);
 
   return (
     <Wrapper>
@@ -14,11 +18,19 @@ export default function WordSearch() {
         value={searchTerm}
         onChange={onChange}
         placeholder="Search for any word..."
+        providedRef={inputRef}
       />
     </Wrapper>
   );
 }
 
-const Wrapper = styled.div`
+WordSearch.propTypes = {
+  searchTerm: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+const Wrapper = styled.section`
   margin-block-start: var(--size-l);
 `;
+
+export default WordSearch;
