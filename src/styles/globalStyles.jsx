@@ -10,16 +10,11 @@ const GlobalStyle = createGlobalStyle`
     ${createCSSVars(CSS_VARS)};
   }
 
-  html {
-  }
-
   body {
     font-family: var(--theme-font);
     background: var(--background-page);
     color: var(--text-body);
     transition-timing-function: ease-in-out;
-    transition-duration: 0.2s;
-    transition-property: background, color;
     font-size: var(--font-size-s)
   }
 
