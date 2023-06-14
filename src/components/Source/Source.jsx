@@ -8,7 +8,10 @@ function Source({ payload, ...delegated }) {
   const href = payload[0].sourceUrls[0];
 
   return (
-    <SourceWrapper {...delegated}>
+    <SourceWrapper
+      {...delegated}
+      aria-label="Word source"
+    >
       <SourceLabel>Source</SourceLabel>
       <SourceCite>
         <SourceLink

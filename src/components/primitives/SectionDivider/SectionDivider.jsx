@@ -2,8 +2,9 @@ import styled from "styled-components/macro";
 import PropTypes from "prop-types";
 
 function SectionDivider({ orientation = "horizontal" }) {
-  if (orientation === "horizontal") return <HorizontalDivider />;
-  if (orientation === "vertical") return <VerticalDivider />;
+  if (orientation === "horizontal")
+    return <HorizontalDivider aria-hidden="true" />;
+  if (orientation === "vertical") return <VerticalDivider aria-hidden="true" />;
 }
 
 SectionDivider.propTypes = {

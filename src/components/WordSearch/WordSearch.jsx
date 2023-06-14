@@ -12,14 +12,16 @@ function WordSearch({ searchTerm, onChange }) {
 
   return (
     <Wrapper>
-      <TextInput
-        label="Word Search"
-        icon={<img src="./assets/images/icon-search.svg" />}
-        value={searchTerm}
-        onChange={onChange}
-        placeholder="Search for any word..."
-        providedRef={inputRef}
-      />
+      <article aria-label="Word search">
+        <TextInput
+          label="Word Search"
+          icon={<img src="./assets/images/icon-search.svg" />}
+          value={searchTerm}
+          onChange={onChange}
+          placeholder="Search for any word..."
+          providedRef={inputRef}
+        />
+      </article>
     </Wrapper>
   );
 }

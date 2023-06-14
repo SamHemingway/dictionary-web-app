@@ -1,6 +1,7 @@
 import React from "react";
 import { createCSSVars } from "../../helpers/createCSSVars";
 import { THEME } from "../../helpers/constants";
+import PropTypes from "prop-types";
 
 function getInitialDisplayPrefs(type) {
   const preference = window.localStorage.getItem(type);
@@ -28,7 +29,7 @@ function getInitialDisplayPrefs(type) {
 
 export const ThemeContext = React.createContext();
 
-export default function ThemeProvider({ children }) {
+function ThemeProvider({ children }) {
   const [font, setFont] = React.useState(getInitialDisplayPrefs("font"));
   const [theme, setTheme] = React.useState(getInitialDisplayPrefs("theme"));
 
@@ -51,10 +52,14 @@ export default function ThemeProvider({ children }) {
   }, [theme]);
 
   return (
-    <ThemeContext.Provider
-      value={{ font, setFont, theme, setTheme, getInitialDisplayPrefs }}
-    >
+    <ThemeContext.Provider value={{ font, setFont, theme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );
 }
+
+ThemeProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default ThemeProvider;

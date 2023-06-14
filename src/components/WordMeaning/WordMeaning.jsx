@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components/macro";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Source from "../Source/Source";
 import SectionDivider from "../primitives/SectionDivider/SectionDivider";
 
@@ -28,30 +28,64 @@ const childVariants = {
   },
 };
 
+const childVariantsReducedMotion = {
+  start: {
+    opacity: 0,
+  },
+  end: {
+    opacity: 1,
+  },
+};
+
 function WordMeaning({ payload }) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <motion.article
       variants={wrapperVariants}
       initial="start"
       animate="end"
+      aria-label="Word Meanings"
     >
       {payload[0]?.meanings.map((entry, index) => {
         return (
           <React.Fragment key={index}>
-            <DividerContainer variants={childVariants}>
+            <DividerContainer
+              variants={
+                shouldReduceMotion ? childVariantsReducedMotion : childVariants
+              }
+            >
               <PartOfSpeech>{entry.partOfSpeech}</PartOfSpeech>
               <SectionDivider />
             </DividerContainer>
-            <Subheader variants={childVariants}>Meaning</Subheader>
+            <Subheader
+              variants={
+                shouldReduceMotion ? childVariantsReducedMotion : childVariants
+              }
+            >
+              Meaning
+            </Subheader>
             <DefinitionList>
               {entry.definitions.map((entry, index) => {
                 return (
                   <React.Fragment key={index}>
-                    <DefinitionItem variants={childVariants}>
+                    <DefinitionItem
+                      variants={
+                        shouldReduceMotion
+                          ? childVariantsReducedMotion
+                          : childVariants
+                      }
+                    >
                       {entry.definition}
                     </DefinitionItem>
                     {entry.example && (
-                      <Example variants={childVariants}>
+                      <Example
+                        variants={
+                          shouldReduceMotion
+                            ? childVariantsReducedMotion
+                            : childVariants
+                        }
+                      >
                         <ExampleQuote>{entry.example}</ExampleQuote>
                       </Example>
                     )}
@@ -60,7 +94,13 @@ function WordMeaning({ payload }) {
               })}
             </DefinitionList>
             {entry.synonyms[0] && (
-              <SynonymWrapper variants={childVariants}>
+              <SynonymWrapper
+                variants={
+                  shouldReduceMotion
+                    ? childVariantsReducedMotion
+                    : childVariants
+                }
+              >
                 <Subheader style={{ display: "inline" }}>Synonyms</Subheader>
                 <SynonymList>
                   {entry.synonyms.map((entry, index) => {
@@ -75,7 +115,9 @@ function WordMeaning({ payload }) {
       <SectionDivider />
       <Source
         payload={payload}
-        variants={childVariants}
+        variants={
+          shouldReduceMotion ? childVariantsReducedMotion : childVariants
+        }
       />
     </motion.article>
   );

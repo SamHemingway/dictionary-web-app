@@ -1,5 +1,6 @@
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
+import VisuallyHidden from "../primitives/VisuallyHidden/MyAttempt";
 
 function AudioButton({ src }) {
   function handleClick(src) {
@@ -13,6 +14,7 @@ function AudioButton({ src }) {
         handleClick(src);
       }}
     >
+      <VisuallyHidden>Play pronuncuation of word</VisuallyHidden>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="75"

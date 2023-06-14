@@ -14,7 +14,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: var(--theme-font);
     background: var(--background-page);
     color: var(--text-body);
-    transition-timing-function: ease-in-out;
     font-size: var(--font-size-s)
   }
 

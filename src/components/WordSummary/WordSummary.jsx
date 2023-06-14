@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import styled from "styled-components/macro";
 import AudioButton from "../AudioButton/AudioButton";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const variants = {
   start: {
@@ -14,16 +14,28 @@ const variants = {
   },
 };
 
+const variantsReducedMotion = {
+  start: {
+    opacity: 0,
+  },
+  end: {
+    opacity: 1,
+  },
+};
+
 function WordSummary({ payload }) {
   const wordTitle = payload[0]?.word;
   const phonetic = payload[0]?.phonetic;
   const audioSrc = payload[0]?.phonetics.find((entry) => entry.audio)?.audio;
 
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <Wrapper
-      variants={variants}
+      variants={shouldReduceMotion ? variantsReducedMotion : variants}
       initial="start"
       animate="end"
+      aria-label="Word summary & pronunciation"
     >
       {payload[0] && (
         <>
