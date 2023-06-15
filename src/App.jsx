@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import WordSearch from "./components/WordSearch/WordSearch";
 import Result from "./components/Result/Result";
 import useDebounce from "./hooks/useDebounce";
+import ThemeProvider from "./contexts/ThemeProvider/ThemeProvider";
 
 const ENDPOINT = `https://api.dictionaryapi.dev/api/v2/entries/en/`;
 
@@ -56,20 +57,22 @@ function App() {
   return (
     <Wrapper>
       <GlobalStyle />
-      <Header />
+      <ThemeProvider>
+        <Header />
 
-      <main>
-        <WordSearch
-          searchTerm={searchTerm}
-          onChange={onChange}
-        />
-        <Result
-          payload={payload}
-          payloadReceived={payloadReceived}
-          status={status}
-          searchTerm={searchTerm}
-        />
-      </main>
+        <main>
+          <WordSearch
+            searchTerm={searchTerm}
+            onChange={onChange}
+          />
+          <Result
+            payload={payload}
+            payloadReceived={payloadReceived}
+            status={status}
+            searchTerm={searchTerm}
+          />
+        </main>
+      </ThemeProvider>
     </Wrapper>
   );
 }

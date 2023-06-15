@@ -1,6 +1,4 @@
 import React from "react";
-import { createCSSVars } from "../../helpers/createCSSVars";
-import { THEME } from "../../helpers/constants";
 import PropTypes from "prop-types";
 
 function getInitialDisplayPrefs(type) {
@@ -31,7 +29,14 @@ export const ThemeContext = React.createContext();
 
 function ThemeProvider({ children }) {
   const [font, setFont] = React.useState(getInitialDisplayPrefs("font"));
-  const [theme, setTheme] = React.useState(getInitialDisplayPrefs("theme"));
+  const [theme, setTheme] = React.useState("dark");
+
+  React.useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--theme-transition-speed",
+      "0.2s"
+    );
+  }, []);
 
   React.useEffect(() => {
     document.documentElement.style.setProperty(
@@ -40,15 +45,16 @@ function ThemeProvider({ children }) {
     );
 
     window.localStorage.setItem("font", font);
-    window.localStorage.setItem("theme", theme);
-  }, [font, theme]);
+  }, [font]);
 
   React.useEffect(() => {
-    const themeVars = createCSSVars(THEME[theme]).split(";");
-    themeVars.forEach((variable) => {
-      const [property, value] = variable.split(":");
-      document.documentElement.style.setProperty(property, value);
-    });
+    if (theme === "dark") {
+      document.documentElement.classList.remove("light");
+      document.documentElement.classList.add("dark");
+    } else if (theme === "light") {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.add("light");
+    }
   }, [theme]);
 
   return (

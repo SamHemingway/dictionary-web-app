@@ -55,7 +55,6 @@ const Wrapper = styled.form`
   border-radius: var(--border-m);
   padding-inline: var(--size-l);
   gap: var(--size-l);
-  transition: filter 0.2s ease-out;
 
   &:focus-within {
     outline: 1px solid var(--colour-accent);
